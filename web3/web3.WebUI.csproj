@@ -202,6 +202,11 @@
     <Content Include="Content\umeditor1_2_2-utf8-net\umeditor.css" />
     <Content Include="Content\umeditor1_2_2-utf8-net\umeditor.js" />
     <Content Include="Content\umeditor1_2_2-utf8-net\umeditor.min.js" />
+    <Content Include="datatable\bootstrap.css" />
+    <Content Include="datatable\jquery-2.2.3.js" />
+    <Content Include="datatable\jquery.dataTables.css" />
+    <Content Include="datatable\jquery.dataTables.min.css" />
+    <Content Include="datatable\jquery.dataTables.min.js" />
     <Content Include="datepicker\lq.datetimepick.css" />
     <Content Include="datepicker\lq.datetimepick.js" />
     <Content Include="datepicker\selectUi.js" />

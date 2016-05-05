@@ -6,18 +6,50 @@
 }
 
 <h2>UserList</h2>
-<table class="table table-bordered">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.u_name)</th>
-        <th>@Html.DisplayNameFor(model => model.u_email)</th>
-        <th>@Html.DisplayNameFor(model => model.u_image)</th>
-    </tr>
-    @foreach (var item in Model)
-    {
+<table class="table table-bordered" id="userlist">
+    <thead>
         <tr>
-            <td>@item.u_name</td>
-            <td>@item.u_email</td>
-            <td>@item.u_image</td>
+            <th>@Html.DisplayNameFor(model => model.u_name)</th>
+            <th>@Html.DisplayNameFor(model => model.u_email)</th>
+            <th>@Html.DisplayNameFor(model => model.u_image)</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.u_name</td>
+                <td>@item.u_email</td>
+                <td>@item.u_image</td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+@section Header{
+    <link rel="stylesheet" href="~/Content/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="~/datatable/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/datatable/jquery.dataTables.css" />
+    <script type="text/javascript" charset="utf8" src="~/datatable/jquery.dataTables.min.js"></script>
+}
+@*<script src="~/datatable/jquery-2.2.3.js"></script>*@
+
+<script>
+    $("#userlist").dataTable({
+        "oLanguage": {
+            "sProcessing": "加载中...",
+            "sLengthMenu": "每页显示 _MENU_ 条记录",
+            "sZeroRecords": "对不起，查询不到相关数据！",
+            "sEmptyTable": "表中无数据存在！",
+            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+            "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
+            "sSearch": "搜索",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上一页",
+                "sNext": "下一页",
+                "sLast": "末页"
+            }
+        },
+    });
+</script>
