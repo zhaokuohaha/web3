@@ -78,7 +78,7 @@ namespace web3.Controllers
             if (Session["ValidateCode"].ToString() != code)
             {
                 TempData["valid"] = "验证码错误";
-                return View("index");
+                return Redirect("/Home/Index");
             }
 
             string username = user.u_name;
@@ -89,7 +89,7 @@ namespace web3.Controllers
                 TempData["info"] = "登录失败";
                 TempData["u_name"] = username;
                 TempData["u_password"] = password;
-                return View("Index");
+                return Redirect("/Home/Index");
             }
             else
             {
@@ -109,6 +109,18 @@ namespace web3.Controllers
             Session["ValidateCode"] = code;
             byte[] bytes = vCode.CreateValidateGraphic(code);
             return File(bytes, @"image/jpeg");
+        }
+
+        /// <summary>
+        /// 检查用户师傅存在
+        /// </summary>
+        /// <returns></returns>
+        public string checkUser(string data)
+        {
+            Web_User user = efdb.Users.FirstOrDefault(m => m.u_name == data);
+            if (user != null)
+                return "true";
+            return "false";
         }
     }
 }

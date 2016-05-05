@@ -1,0 +1,99 @@
+﻿@model web3.Domain.Entities.Web_User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    <div>
+        <h4>Web_User</h4>
+        <hr />
+        Username : @ViewBag.user
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.u_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.u_name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.u_password)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.u_password)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.u_sex)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.u_sex)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.u_tel)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.u_tel)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.u_birth)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.u_birth)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.u_hoby)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.u_hoby)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.u_intro)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.u_intro)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.u_image)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.u_image)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.u_email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.u_email)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

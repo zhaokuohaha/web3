@@ -118,6 +118,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="citySelect\city.min.js" />
+    <Content Include="citySelect\jquery.cityselect.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -200,6 +202,9 @@
     <Content Include="Content\umeditor1_2_2-utf8-net\umeditor.css" />
     <Content Include="Content\umeditor1_2_2-utf8-net\umeditor.js" />
     <Content Include="Content\umeditor1_2_2-utf8-net\umeditor.min.js" />
+    <Content Include="datepicker\lq.datetimepick.css" />
+    <Content Include="datepicker\lq.datetimepick.js" />
+    <Content Include="datepicker\selectUi.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -269,6 +274,7 @@
     <Content Include="Views\Home\UserList.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\doRegister.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

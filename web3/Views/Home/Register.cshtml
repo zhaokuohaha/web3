@@ -19,6 +19,7 @@
         {
             @Html.LabelFor(m => m.u_name)
             @Html.TextBoxFor(m => m.u_name)
+            <div id = "userExists">用户已存在, 请重新输入</div >
             <p></p>
             @Html.LabelFor(m => m.u_password)
             @Html.PasswordFor(m => m.u_password)
@@ -26,7 +27,7 @@
             @Html.LabelFor(m => m.u_email)
             @Html.TextBoxFor(m => m.u_email)
             <p></p>
-            <input type="submit" class="btn btn-primary" value="注册" />
+            <input type="submit" id="Submit" class="btn btn-primary" value="注册" />
             <input type="reset" class="btn btn-default" value="重置" />
         }
     </div>
@@ -34,6 +35,29 @@
 <div class="row"><div id="showinfo"></div></div>
 
 <script>
+
+    $("input[name=u_name").focus(function () {
+        $("#userExists").hide();
+    });
+
+    $("input[name=u_name]").blur(function () {
+        $.ajax({
+            url: "/Home/checkUser",
+            type: "Post",
+            data: {data:$("input[name=u_name]").val()},
+            success: function (data) {
+                if (data == "true") {
+                    $("#userExists").show();
+                    $("#Submit").attr("disabled", "true");
+                }
+                else {
+                    $("#Submit").removeAttr("disabled");
+                }
+            },
+        });
+    });
+
+
     $("form").validate({
         rules: {
             u_name : {required: true, minlength: 2},

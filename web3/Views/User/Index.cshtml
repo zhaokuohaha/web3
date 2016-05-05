@@ -11,11 +11,11 @@
 {
     <div class="username">
         @Html.LabelFor(m => m.u_name)
-        @Html.TextBoxFor(m => m.u_name)
+        @Html.EditorFor(m => m.u_name)
     </div>
     <div class="password">
         @Html.LabelFor(m => m.u_password)
-        @Html.PasswordFor(m => m.u_password)
+        @Html.EditorFor(m => m.u_password)
     </div>
     <div class="sex">
         @Html.LabelFor(m => m.u_password)
@@ -30,9 +30,7 @@
         @Html.LabelFor(m => m.u_tel)
         @Html.TextBoxFor(m => m.u_tel)
     </div>
-    <div class="birth">
-        @Html.LabelFor(m => m.u_birth)
-    </div>
+    
     <div class="hobby">
         @Html.LabelFor(m => m.u_hoby)
         @Html.CheckBox("hobby", false, new { value = "sport" })体育
@@ -40,24 +38,81 @@
         @Html.CheckBox("hobby", false, new { value = "book" })读书
     </div>
     <div class="introduce">
-        @section Header{
-            <script src="~/Content/umeditor1_2_2-utf8-net/umeditor.config.js"></script>
-            <script src="~/Content/umeditor1_2_2-utf8-net/umeditor.js"></script>
-            <script src="~/Content/umeditor1_2_2-utf8-net/umeditor.min.js"></script>
-            <link href="~/Content/umeditor1_2_2-utf8-net/themes/default/css/umeditor.css" rel="stylesheet" />\
-        }
         @Html.LabelFor(m => m.u_intro)
         <script id="container" name="content" type="text/plain" width="800px"></script>
-        <script>
-            var editor = UM.getEditor('container', {});
-            editor.setHeight(300);
-        </script>
     </div>
+
+    <div class="birth">
+        @Html.LabelFor(m => m.u_birth)
+        <input type="text" name="birthday" id="datetimepicker3" class="form-control" value="2015-5-20" />
+    </div>
+
+    <div class="city">
+        地址:
+        <div id="city">
+            <select class="prov"></select>
+            <select class="city" disabled="disabled"></select>
+            <select class="dist" disabled="disabled"></select>
+        </div> 
+    </div>
+
     <div class="image">
         @Html.LabelFor(m => m.u_image)
+        <input type="file" name="image"  value="" />
     </div>
+    <p></p>
     <div class="option">
         <input type="submit" value="提交" />
         <input type="reset" value="重置" />
     </div>
 }
+
+@section  Header{
+    @* UEditor *@
+    <script src="~/Content/umeditor1_2_2-utf8-net/umeditor.config.js"></script>
+    <script src="~/Content/umeditor1_2_2-utf8-net/umeditor.js"></script>
+    <script src="~/Content/umeditor1_2_2-utf8-net/umeditor.min.js"></script>
+    <link href="~/Content/umeditor1_2_2-utf8-net/themes/default/css/umeditor.css" rel="stylesheet" />
+
+    @* 日期选择插件 *@
+    <script src="~/datepicker/selectUi.js"></script>    
+    <script src="~/datepicker/lq.datetimepick.js"></script>
+    <link href="~/datepicker/lq.datetimepick.css" rel="stylesheet"/>
+
+    @* 省市联动插件 *@
+    @*<script src="~/citySelect/city.min.js"></script>*@
+    <script src="~/citySelect/jquery.cityselect.js"></script>
+}
+
+<script>
+    //富文本编辑器
+    var editor = UM.getEditor('container', {});
+    editor.setHeight(300);
+    //日期选择空间
+    $("#datetimepicker3").on("click", function (e) {
+        e.stopPropagation();
+        $(this).lqdatetimepicker({
+            css: 'datetime-day',
+            dateType: 'D',
+            selectback: function () {
+
+            }
+        });
+    });
+    //jquery表单验证
+    $("form").validate({
+        rules: {
+            u_name: { required: true, minlength: 2 },
+            u_email: { required: true, email: true },
+            u_password: { required: true, minlength: 6 },
+            u_tel: { number: true },
+        }
+    });
+    //省市联动
+    $("#city").citySelect({
+        url: "../../citySelect/city.min.js",
+        city: "长沙", //城市 
+        dist: "岳麓区", //区县 
+        nodata: "none" //当子集无数据时，隐藏select 
+    });
+</script>
