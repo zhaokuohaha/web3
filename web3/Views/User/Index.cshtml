@@ -1,0 +1,63 @@
+﻿@model web3.Domain.Entities.Web_User
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<h2>编辑用户信息</h2>
+
+@using (Html.BeginForm("Edit", "User", FormMethod.Post))
+{
+    <div class="username">
+        @Html.LabelFor(m =>m.u_name)
+        @Html.TextBoxFor(m => m.u_name)
+    </div>
+    <div class="password">
+        @Html.LabelFor(m => m.u_password)
+        @Html.PasswordFor(m => m.u_password)
+    </div>
+    <div class="sex">
+        @Html.LabelFor(m => m.u_password)
+        @Html.RadioButtonFor(m => m.u_sex,"man")男
+        @Html.RadioButtonFor(m => m.u_sex, "women")女
+    </div>
+    <div class="email">
+        @Html.LabelFor(m => m.u_email)
+        @Html.TextBoxFor(m => m.u_email)
+    </div>
+    <div class="tel">
+        @Html.LabelFor(m => m.u_tel)
+        @Html.TextBoxFor(m => m.u_tel)
+    </div>
+    <div class="birth">
+        @Html.LabelFor(m => m.u_birth)
+    </div>
+    <div class="hobby">
+        @Html.LabelFor(m => m.u_hoby)
+        @Html.CheckBox("hobby", false , new {value="sport"})体育
+        @Html.CheckBox("hobby", false, new { value = "music" })音乐
+        @Html.CheckBox("hobby", false, new { value = "book" })读书
+    </div>
+    <div class="introduce">
+        <!-- 加载编辑器的容器 -->
+        <script id="container" name="content" type="text/plain">
+            这里写你的初始化内容
+        </script>
+        <!-- 配置文件 -->
+        <script type="text/javascript" src="ueditor.config.js"></script>
+        <!-- 编辑器源码文件 -->
+        <script type="text/javascript" src="ueditor.all.js"></script>
+        <!-- 实例化编辑器 -->
+        <script type="text/javascript">
+            var ue = UE.getEditor('container');
+        </script>
+    </div>
+    <div class="image">
+
+    </div>
+    <div class="option">
+        <input type="submit" value="提交" />
+        <input type="reset" value="重置" />
+    </div>
+}
