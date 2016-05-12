@@ -16,6 +16,7 @@
         <h4>Web_User</h4>
         <hr />
         Username : @ViewBag.user
+		image: @ViewBag.img
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -79,7 +80,15 @@
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.u_image)
+				@if (Model.u_imagedata == null)
+				{
+					@:None
+				}
+				else
+				{
+					<img width="150" height="150" src="@Url.Action("GetIamge", "User", new { Model.u_id })" />
+				}
+                @*@Html.DisplayFor(model => model.u_image)*@
             </dd>
     
             <dt>

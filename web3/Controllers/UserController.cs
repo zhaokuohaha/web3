@@ -23,24 +23,51 @@ namespace web3.Controllers
         }
 
         [ValidateInput(false)]
-        public ActionResult Edit(Web_User user, FormCollection fc)
+        public ActionResult Edit(Web_User user, FormCollection fc, HttpPostedFileBase image)
         {
+			
+			if (image != null)
+			{
+				user.u_image = image.ContentType;
+				user.u_imagedata = new byte[image.ContentLength];
+				image.InputStream.Read(user.u_imagedata, 0, image.ContentLength);
+			}
             ViewBag.user = user.u_name;
-            Web_User u = efdb.Users.FirstOrDefault(m => m.u_name == user.u_name);
-            if(u != null)
+			string hobby = fc.GetValue("hobby").AttemptedValue;
+			hobby = hobby.Replace(",false", "");
+
+			Web_User u = efdb.Users.FirstOrDefault(m => m.u_name == user.u_name);
+			if (u != null)
             {
                 u.u_name = user.u_name;
                 u.u_password = Tools.Tookit.md5(user.u_password);
                 u.u_email = user.u_email;
                 u.u_sex = user.u_sex;
                 u.u_tel = user.u_tel;
-                u.u_hoby = user.u_hoby;
+                u.u_hoby = hobby;
                 u.u_intro = fc["content"];
                 u.u_birth = DateTime.Parse(fc["birthday"]);
-                u.u_image = fc["image"];
+				u.u_image = user.u_image;
+				u.u_imagedata = user.u_imagedata;
             };
             efdb.SaveChanges();
             return View(u);
         }
-    }
+
+
+
+		public FileContentResult GetIamge(int uid)
+		{
+			Web_User user = efdb.Users.FirstOrDefault(p => p.u_id == uid);
+			if (user != null)
+			{
+				return File(user.u_imagedata, user.u_image);
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+	}
 }

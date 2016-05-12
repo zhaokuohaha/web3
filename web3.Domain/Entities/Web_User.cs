@@ -57,6 +57,11 @@ namespace web3.Domain.Entities
         /// </summary>
         [Display(Name = "头像: ")]
         public string u_image { get; set; }
+
+		/// <summary>
+		/// 图片地址
+		/// </summary>
+		public string u_imagedata { get; set; }
         /// <summary>
         /// 邮箱
         /// </summary>
