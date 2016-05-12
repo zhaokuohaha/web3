@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using web3.Domain.Concrete;
 using web3.Domain.Entities;
+using web3.Tools;
 namespace web3.Controllers
 {
+	[LoginAuth]
     public class UserController : Controller
     {
         EFDbContext efdb = new EFDbContext();
@@ -29,8 +32,9 @@ namespace web3.Controllers
 			if (image != null)
 			{
 				user.u_image = image.ContentType;
-				user.u_imagedata = new byte[image.ContentLength];
-				image.InputStream.Read(user.u_imagedata, 0, image.ContentLength);
+				string path = Path.Combine(HttpContext.Server.MapPath("../Uploads"),image.FileName);
+				image.SaveAs(path);
+				user.u_imagedata = image.FileName;
 			}
             ViewBag.user = user.u_name;
 			string hobby = fc.GetValue("hobby").AttemptedValue;
@@ -56,12 +60,15 @@ namespace web3.Controllers
 
 
 
-		public FileContentResult GetIamge(int uid)
+		public FilePathResult GetIamge(int u_id)
 		{
-			Web_User user = efdb.Users.FirstOrDefault(p => p.u_id == uid);
+			Web_User user = efdb.Users.FirstOrDefault(p => p.u_id == u_id);
 			if (user != null)
 			{
-				return File(user.u_imagedata, user.u_image);
+				string path = Path.Combine(HttpContext.Server.MapPath("../Uploads"), user.u_imagedata);
+				TempData["path"] = path;
+				FilePathResult f = new FilePathResult(path, user.u_image);
+				return f;
 			}
 			else
 			{

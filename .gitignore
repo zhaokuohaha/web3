@@ -243,3 +243,7 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+#Ñ¹ËõÎÄ¼ş
+*.rar
+*.zip

@@ -15,10 +15,10 @@
 	</div>
 	<div class="password">
 		@Html.LabelFor(m => m.u_password)
-		@Html.EditorFor(m => m.u_password)
+		@Html.TextBoxFor( m => m.u_password )
 	</div>
 	<div class="sex">
-		@Html.LabelFor(m => m.u_password)
+		@Html.LabelFor(m => m.u_sex)
 		@Html.RadioButtonFor(m => m.u_sex, "男")男
 		@Html.RadioButtonFor(m => m.u_sex, "女")女
 	</div>
@@ -36,8 +36,8 @@
 		@Html.CheckBox("hobby",  new { value = "sport" })体育
 		@Html.CheckBox("hobby",  new { value = "music" })音乐
 		@Html.CheckBox("hobby",  new { value = "book" })读书
-		
-		
+
+
 	</div>
 	<div class="introduce">
 		@Html.LabelFor(m => m.u_intro)
@@ -88,6 +88,9 @@
 }
 
 <script>
+	//密码区设为空
+	$("input[name=u_password]").val("");
+
 	//富文本编辑器
 	var editor = UM.getEditor('container', {});
 	editor.setHeight(300);

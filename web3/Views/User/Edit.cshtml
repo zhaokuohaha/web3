@@ -1,7 +1,7 @@
 ﻿@model web3.Domain.Entities.Web_User
 
 @{
-    Layout = null;
+	Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -14,10 +14,7 @@
 <body>
     <div>
         <h4>Web_User</h4>
-        <hr />
-        Username : @ViewBag.user
-		image: @ViewBag.img
-        <hr />
+
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.u_name)
@@ -72,9 +69,11 @@
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.u_intro)
+				<input type="text" name="introdata" value="@Model.u_intro" id="introdata" hidden="hidden" />
+				<div id="showdata"></div>
+                @*@Html.DisplayFor(model => model.u_intro)*@
             </dd>
-    
+			
             <dt>
                 @Html.DisplayNameFor(model => model.u_image)
             </dt>
@@ -88,6 +87,7 @@
 				{
 					<img width="150" height="150" src="@Url.Action("GetIamge", "User", new { Model.u_id })" />
 				}
+				@TempData["path"]
                 @*@Html.DisplayFor(model => model.u_image)*@
             </dd>
     
@@ -104,5 +104,12 @@
     <p>
         @Html.ActionLink("Back to List", "Index")
     </p>
+
+
+
+	<script>
+		var introdata = $("#introdata").val();
+		$("#showdata").append(introdata);
+	</script>
 </body>
 </html>

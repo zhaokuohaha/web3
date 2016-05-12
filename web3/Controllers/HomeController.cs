@@ -86,7 +86,7 @@ namespace web3.Controllers
             Web_User findUser =  efdb.Users.FirstOrDefault(m => m.u_name == username && m.u_password == password);
             if (findUser == null)
             {
-                TempData["info"] = "登录失败";
+                TempData["info"] = "登录失败,用户名或者密码错误";
                 TempData["u_name"] = username;
                 TempData["u_password"] = password;
                 return Redirect("/Home/Index");
@@ -94,7 +94,9 @@ namespace web3.Controllers
             else
             {
                 Session.Add("u_name", username);
-            }
+				HttpContext.Session["username"] = username;
+
+			}
             return RedirectToAction("Index", "User");
         }
 
