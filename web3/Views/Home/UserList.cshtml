@@ -27,7 +27,7 @@
 					}
 					else
 					{
-						<img width="150" height="150" src="@Url.Action("GetIamge", "User", new { item.u_id })" />
+						<img width="50" height="50" src="@Url.Action("GetIamge", "Home", new { item.u_id })" />
 					}
 				</td>
             </tr>
@@ -44,7 +44,11 @@
 @*<script src="~/datatable/jquery-2.2.3.js"></script>*@
 
 <script>
-    $("#userlist").dataTable({
+	$("#userlist").dataTable({
+		"aLengthMenu": [
+                    [2, 5, 10, 20, 50, -1],
+                    [2, 5, 10, 20, 50, "all"] // change per page values here
+		],
         "oLanguage": {
             "sProcessing": "加载中...",
             "sLengthMenu": "每页显示 _MENU_ 条记录",

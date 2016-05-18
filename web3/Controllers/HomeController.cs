@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using web3.Domain.Entities;
 using web3.Domain.Concrete;
 using web3.Tools;
+using System.IO;
 
 namespace web3.Controllers
 {
@@ -47,13 +48,15 @@ namespace web3.Controllers
         public ViewResult Register() { return View(); }
 
         [HttpPost]
-        public ActionResult Register(Web_User user)
+        public ActionResult Register(Web_User user, FormCollection fc)
         {
-            //if(efdb.Users.FirstOrDefault(m => m.u_name == user.u_name) != null)
-            //{
-
-            //}
-            try
+			string code = fc["validatecode"];
+			if (Session["ValidateCode"].ToString() != code)
+			{
+				TempData["valid"] = "验证码错误";
+				return Redirect("/Home/Register");
+			}
+			try
             {
                 efdb.Users.Add(new Web_User
                 {
@@ -124,5 +127,25 @@ namespace web3.Controllers
                 return "true";
             return "false";
         }
-    }
+		/// <summary>
+		/// 获取相片信息
+		/// </summary>
+		/// <param name="u_id"></param>
+		/// <returns></returns>
+		public FilePathResult GetIamge(int u_id)
+		{
+			Web_User user = efdb.Users.FirstOrDefault(p => p.u_id == u_id);
+			if (user != null)
+			{
+				string path = Path.Combine(HttpContext.Server.MapPath("../Uploads"), user.u_imagedata);
+				TempData["path"] = path;
+				FilePathResult f = new FilePathResult(path, user.u_image);
+				return f;
+			}
+			else
+			{
+				return null;
+			}
+		}
+	}
 }

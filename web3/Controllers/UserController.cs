@@ -28,7 +28,8 @@ namespace web3.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(Web_User user, FormCollection fc, HttpPostedFileBase image)
         {
-			
+
+			Web_User u = efdb.Users.FirstOrDefault(m => m.u_name == user.u_name);
 			if (image != null)
 			{
 				user.u_image = image.ContentType;
@@ -36,11 +37,16 @@ namespace web3.Controllers
 				image.SaveAs(path);
 				user.u_imagedata = image.FileName;
 			}
+			else
+			{
+				user.u_image = u.u_image;
+				user.u_imagedata = u.u_imagedata;
+			}
             ViewBag.user = user.u_name;
+			ViewBag.password = user.u_password;
 			string hobby = fc.GetValue("hobby").AttemptedValue;
 			hobby = hobby.Replace(",false", "");
 
-			Web_User u = efdb.Users.FirstOrDefault(m => m.u_name == user.u_name);
 			if (u != null)
             {
                 u.u_name = user.u_name;
@@ -57,24 +63,5 @@ namespace web3.Controllers
             efdb.SaveChanges();
             return View(u);
         }
-
-
-
-		public FilePathResult GetIamge(int u_id)
-		{
-			Web_User user = efdb.Users.FirstOrDefault(p => p.u_id == u_id);
-			if (user != null)
-			{
-				string path = Path.Combine(HttpContext.Server.MapPath("../Uploads"), user.u_imagedata);
-				TempData["path"] = path;
-				FilePathResult f = new FilePathResult(path, user.u_image);
-				return f;
-			}
-			else
-			{
-				return null;
-			}
-		}
-
 	}
 }

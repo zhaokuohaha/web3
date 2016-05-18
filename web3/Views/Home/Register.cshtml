@@ -1,35 +1,49 @@
 ﻿@model web3.Domain.Entities.Web_User
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "用户注册";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 <div class="row">
-    <h2>注册</h2>
+    <h2>用户注册</h2>
 </div>
 <div class="row">
     <div class="col-xs-6 col-offest-3">
         @using (Ajax.BeginForm("Register", "Home",
-                    new AjaxOptions
-                    {
-                        HttpMethod = "Post",
-                        UpdateTargetId = "showinfo",
-                        InsertionMode = InsertionMode.InsertAfter
-                    }))
-        {
-            @Html.LabelFor(m => m.u_name)
-            @Html.TextBoxFor(m => m.u_name)
-            <div id = "userExists" hidden="hidden">用户已存在, 请重新输入</div >
-            <p></p>
-            @Html.LabelFor(m => m.u_password)
-            @Html.PasswordFor(m => m.u_password)
-            <p></p>
-            @Html.LabelFor(m => m.u_email)
-            @Html.TextBoxFor(m => m.u_email)
-            <p></p>
-            <input type="submit" id="Submit" class="btn btn-primary" value="注册" />
-            <input type="reset" class="btn btn-default" value="重置" />
-        }
+						new AjaxOptions
+						{
+							HttpMethod = "Post",
+							UpdateTargetId = "showinfo",
+							InsertionMode = InsertionMode.InsertAfter
+						}))
+		{
+			<dl class="dl-horizontal">
+				<dt>@Html.LabelFor(m => m.u_name)</dt>
+				<dd>@Html.TextBoxFor(m => m.u_name)</dd>
+				<dd><div id="userExists" style="color:orangered" hidden="hidden">用户已存在, 请重新输入</div></dd>
+				<br />
+				<dt>@Html.LabelFor(m => m.u_password)</dt>
+				<dd>@Html.PasswordFor(m => m.u_password)</dd>
+				<br />
+				<dt>确认密码:</dt>
+				<dd><input type="password" name="checkpassword" value="" /></dd>
+				<br />
+				<dt>@Html.LabelFor(m => m.u_email)</dt>
+				<dd>@Html.TextBoxFor(m => m.u_email)</dd>
+				<br />
+				<dt>验证码</dt>
+				<dd>
+					<input type="text" name="validatecode" value="" />
+					<img id="valiCode" style="cursor: pointer;" src="/Home/GetValidateCode" onclick="this.src = '/Home/GetValidateCode?time=' + (new Date()).getTime();" alt="验证码" />
+					@TempData["valid"]
+				</dd>
+				<br />
+				<dd>
+					<input type="submit" id="Submit" class="btn btn-primary" value="注册" />
+					<input type="reset" class="btn btn-default" value="重置" />
+				</dd>
+			</dl>
+		}
     </div>
 </div>
 <div class="row"><div id="showinfo"></div></div>
@@ -57,12 +71,19 @@
         });
     });
 
+    $("#valiCode").bind("click", function () {
+    	this.src = "/Home/GetValidateCode?time=" + (new Date()).getTime();
+    });
 
     $("form").validate({
         rules: {
             u_name : {required: true, minlength: 2},
             u_email : {required: true, email:true},
-            u_password : {required: true, minlength: 6}
+            u_password: { required: true, minlength: 6 },
+            checkpassword: { equalTo: u_password }
+        },
+        messages: {
+			checkpassword:{equalTo:"请输入相同的密码!"}
         }
     });
 </script>
