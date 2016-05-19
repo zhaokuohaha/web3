@@ -281,6 +281,8 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\doRegister.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Password.cshtml" />
+    <Content Include="Views\User\changePassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

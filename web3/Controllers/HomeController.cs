@@ -137,7 +137,7 @@ namespace web3.Controllers
 			Web_User user = efdb.Users.FirstOrDefault(p => p.u_id == u_id);
 			if (user != null)
 			{
-				string path = Path.Combine(HttpContext.Server.MapPath("../Uploads"), user.u_imagedata);
+				string path = Path.Combine(HttpContext.Server.MapPath("../Thumbnail"), user.u_imagedata);
 				TempData["path"] = path;
 				FilePathResult f = new FilePathResult(path, user.u_image);
 				return f;

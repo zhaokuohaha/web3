@@ -85,9 +85,9 @@
 				}
 				else
 				{
-					<img width="150" height="150" src="@Url.Action("GetIamge", "Home", new { Model.u_id })" />
+					<img src="@Url.Action("GetIamge", "User", new { Model.u_id })" />
 				}
-				@TempData["path"]
+				@*@TempData["path"]*@
                 @*@Html.DisplayFor(model => model.u_image)*@
             </dd>
     

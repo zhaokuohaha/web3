@@ -69,5 +69,8 @@ namespace web3.Domain.Entities
         [DataType(DataType.EmailAddress,ErrorMessage ="请输入正确的邮箱地址")]
         public string u_email { get; set; }
 
+		public string u_addr_sheng { get; set; }
+		public string u_addr_shi { get; set; }
+		public string u_addr_xian { get; set; }
     }
 }
