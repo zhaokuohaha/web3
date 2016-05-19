@@ -22,12 +22,18 @@ namespace web3.Controllers
             string username = Convert.ToString(Session["u_name"]);
             ViewBag.uname = username;
             Web_User dbuser = efdb.Users.FirstOrDefault(m => m.u_name == username);
-			if (dbuser.u_hoby.Contains("sport"))
-				ViewBag.sport = 1;
-			if (dbuser.u_hoby.Contains("music"))
-				ViewBag.sport = 1;
-			if (dbuser.u_hoby.Contains("book"))
-				ViewBag.sport = 1;
+			string[] hobbies = dbuser.u_hoby.Split(',');
+			//ViewBag.hobbies = hobbies;
+			//foreach(string item in hobbies)
+			//{
+			//	ViewBag[item] = 1;
+			//}
+			//if (dbuser.u_hoby.Contains("sport"))
+			//	ViewBag.sport = 1;
+			//if (dbuser.u_hoby.Contains("music"))
+			//	ViewBag.music = 1;
+			//if (dbuser.u_hoby.Contains("book"))
+			//	ViewBag.book = 1;
 			return View(dbuser);
         }
 		public ActionResult Password()
