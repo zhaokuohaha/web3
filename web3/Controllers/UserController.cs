@@ -22,7 +22,13 @@ namespace web3.Controllers
             string username = Convert.ToString(Session["u_name"]);
             ViewBag.uname = username;
             Web_User dbuser = efdb.Users.FirstOrDefault(m => m.u_name == username);
-			string[] hobbies = dbuser.u_hoby.Split(',');
+			string[] hobbies = { "" };
+			if (dbuser.u_hoby == null)
+			{
+				dbuser.u_hoby = "";
+				
+			}
+			hobbies = dbuser.u_hoby.Split(',');
 			//ViewBag.hobbies = hobbies;
 			//foreach(string item in hobbies)
 			//{

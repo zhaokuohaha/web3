@@ -83,7 +83,7 @@
 				@Html.LabelFor(m => m.u_birth)
 			</dt>
 			<dd>
-				<input type="text" name="birthday" id="datetimepicker3" class="form-control" value="@Model.u_birth.Date" />
+				<input type="text" name="birthday" id="datetimepicker3" class="form-control" value="@Model.u_birth.ToShortDateString()" />
 			</dd><br>
 			<dt>
 				地址:
